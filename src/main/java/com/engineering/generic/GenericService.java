@@ -1,11 +1,7 @@
-package com.codetreatise.generic;
+package com.engineering.generic;
 
 import java.util.List;
 
-/**
- * @author Ram Alapure
- * @since 05-04-2017
- */
 
 public interface GenericService<T extends Object> {
 

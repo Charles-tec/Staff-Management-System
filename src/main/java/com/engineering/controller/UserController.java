@@ -1,4 +1,4 @@
-package com.codetreatise.controller;
+package com.engineering.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
-import com.codetreatise.bean.User;
-import com.codetreatise.config.StageManager;
-import com.codetreatise.service.UserService;
-import com.codetreatise.view.FxmlView;
+import com.engineering.bean.User;
+import com.engineering.config.StageManager;
+import com.engineering.service.UserService;
+import com.engineering.view.FxmlView;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

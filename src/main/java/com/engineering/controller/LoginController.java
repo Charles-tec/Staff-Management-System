@@ -1,4 +1,4 @@
-package com.codetreatise.controller;
+package com.engineering.controller;
 
 
 import java.io.IOException;
@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
-import com.codetreatise.config.StageManager;
-import com.codetreatise.service.UserService;
-import com.codetreatise.view.FxmlView;
+import com.engineering.config.StageManager;
+import com.engineering.service.UserService;
+import com.engineering.view.FxmlView;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,14 +51,14 @@ public class LoginController implements Initializable{
 	@FXML
     private void login(ActionEvent event) throws IOException{
     	if(userService.authenticate(getUsername(), getPassword())){
-    		    		
+
     		stageManager.switchScene(FxmlView.USER);
-    		
+
     	}else{
     		lblLogin.setText("Login Failed.");
     	}
     }
-	
+
 	public String getPassword() {
 		return password.getText();
 	}

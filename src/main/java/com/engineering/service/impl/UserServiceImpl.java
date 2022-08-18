@@ -1,13 +1,13 @@
-package com.codetreatise.service.impl;
+package com.engineering.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.codetreatise.bean.User;
-import com.codetreatise.repository.UserRepository;
-import com.codetreatise.service.UserService;
+import com.engineering.bean.User;
+import com.engineering.repository.UserRepository;
+import com.engineering.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean authenticate(String username, String password){
 		User user = this.findByEmail(username);
+		System.out.println(user);
 		if(user == null){
 			return false;
 		}else{

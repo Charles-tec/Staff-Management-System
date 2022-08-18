@@ -1,7 +1,7 @@
-package com.codetreatise.service;
+package com.engineering.service;
 
-import com.codetreatise.bean.User;
-import com.codetreatise.generic.GenericService;
+import com.engineering.bean.User;
+import com.engineering.generic.GenericService;
 
 public interface UserService extends GenericService<User> {
 

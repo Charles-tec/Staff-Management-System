@@ -1,4 +1,4 @@
-package com.codetreatise.bean;
+package com.engineering.bean;
 
 import java.time.LocalDate;
 
@@ -9,14 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * @author Ram Alapure
- * @since 05-04-2017
- */
 
 @Entity
 @Table(name="User")
-public class User {
+public class User implements java.io.Serializable {
+	private final long serialVersionUID = -7266192208715184336L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
