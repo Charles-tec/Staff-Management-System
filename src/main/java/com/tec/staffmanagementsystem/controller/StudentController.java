@@ -130,12 +130,10 @@ public class StudentController implements Initializable {
     private void saveStudent(ActionEvent event) {
         Engineer engineer=new Engineer();
 
-        if (validate("First Name", getFirstName(), "[a-zA-Z]+") &&
-                validate("Last Name", getLastName(), "[a-zA-Z]+")) {
+        if (true){
 
             if (studentId.getText() == null || studentId.getText() == "") {
-                if (validate("UserName", getUserName(), "[a-zA-Z0-9][a-zA-Z0-9._]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+") &&
-                        emptyValidation("Password", getPassword().isEmpty())) {
+                if (true) {
 
                     Student student = new Student();
 
@@ -143,7 +141,7 @@ public class StudentController implements Initializable {
                     student.setLastName(lastName.getText());
                     student.setEmploymentDate(employmentDate.getValue());
                     student.setSalary(Long.parseLong(salary.getText()));
-                    student.setEngineerId(engineer.getId());
+                    student.setEngineerId(Long.parseLong(engineerId.getText()));
                     student.setUniversity(university.getText());
                    student.setPassword(password.getText());
                    student.setUserName(username.getText());
@@ -159,7 +157,7 @@ public class StudentController implements Initializable {
                 student.setLastName(lastName.getText());
                 student.setEmploymentDate(employmentDate.getValue());
                 student.setSalary(Long.parseLong(salary.getText()));
-                student.setEngineerId(engineer.getId());
+                student.setEngineerId(Long.parseLong(engineerId.getText()));
                 student.setUniversity(university.getText());
                 student.setPassword(password.getText());
                 student.setUserName(username.getText());

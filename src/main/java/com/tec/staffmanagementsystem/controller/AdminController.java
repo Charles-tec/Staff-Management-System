@@ -125,12 +125,10 @@ public class AdminController implements Initializable {
     @FXML
     private void saveAdmin(ActionEvent event) {
 
-        if (validate("First Name", getFirstName(), "[a-zA-Z]+") &&
-                validate("Last Name", getLastName(), "[a-zA-Z]+")) {
+        if (true){
 
             if (adminId.getText() == null || adminId.getText() == "") {
-                if (validate("UserName", getUserName(), "[a-zA-Z0-9][a-zA-Z0-9._]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+") &&
-                        emptyValidation("Password", getPassword().isEmpty())) {
+                if (true) {
 
                     Admin admin = new Admin();
                     admin.setFirstName(firstName.getText());
@@ -156,7 +154,7 @@ public class AdminController implements Initializable {
                 admin.setPassword(password.getText());
                 admin.setUserName(username.getText());
                 Admin updatedAdmin = adminService.save(admin);
-                updateAlert(updatedAdmin);
+               updateAlert(updatedAdmin);
             }
             clearFields();
             loadAdminDetails();

@@ -126,12 +126,10 @@ public class EngineerController implements Initializable {
     @FXML
     private void saveEngineer(ActionEvent event) {
 
-        if (validate("First Name", getFirstName(), "[a-zA-Z]+") &&
-                validate("Last Name", getLastName(), "[a-zA-Z]+")) {
+        if (true){
 
             if (engineerId.getText() == null || engineerId.getText() == "") {
-                if (validate("UserName", getUserName(), "[a-zA-Z0-9][a-zA-Z0-9._]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+") &&
-                        emptyValidation("Password", getPassword().isEmpty())) {
+                if (true) {
 
                     Engineer engineer = new Engineer();
                     engineer.setFirstName(firstName.getText());

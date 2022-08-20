@@ -8,10 +8,7 @@ import com.tec.staffmanagementsystem.view.FxmlView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
@@ -20,7 +17,7 @@ import java.io.IOException;
 @Controller
 public class LoginController implements Initializable {
     @FXML
-    private Button btnLogin;
+    private SplitMenuButton btnLogin;
 
     @FXML
     private Button btnLogin1;
