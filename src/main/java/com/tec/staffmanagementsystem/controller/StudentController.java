@@ -1,7 +1,6 @@
 package com.tec.staffmanagementsystem.controller;
 
 import com.tec.staffmanagementsystem.config.StageManager;
-import com.tec.staffmanagementsystem.entities.Admin;
 import com.tec.staffmanagementsystem.entities.Engineer;
 import com.tec.staffmanagementsystem.entities.Student;
 import com.tec.staffmanagementsystem.service.StudentService;
@@ -98,10 +97,10 @@ public class StudentController implements Initializable {
     private TableColumn<Student, String> colUsername;
 
     @FXML
-    private TableColumn<Admin, Boolean> colEdit;
+    private TableColumn<Student, Boolean> colEdit;
 
     @FXML
-    private MenuItem deleteAdmins;
+    private MenuItem deleteStudents;
 
     @Lazy
     @Autowired
@@ -168,51 +167,52 @@ public class StudentController implements Initializable {
                 updateAlert(updatedStudent);
             }
             clearFields();
-            loadAdminDetails();
+            loadStudentDetails();
         }
 
     }
 
     @FXML
     private void deleteStudents(ActionEvent event) {
-        List<Student> students = adminable.getSelectionModel().getSelectedItems();
+        List<Student> students  = studentTable.getSelectionModel().getSelectedItems();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText(null);
-        alert.setContentText("Are you sure you want to delete the selected admins?");
+        alert.setContentText("Are you sure you want to delete the selected students?");
         Optional<ButtonType> action= alert.showAndWait();
 
         if (action.get() == ButtonType.OK)
-            adminService.deleteInBatch(admins);
-        loadAdminDetails();
+            studentService.deleteInBatch(students);
+        loadStudentDetails();
     }
 
     private void clearFields() {
-        adminId.setText(null);
+        studentId.setText(null);
         firstName.clear();
         lastName.clear();
         employmentDate.setValue(null);
         salary.clear();
-        phoneNumber.clear();
+        engineerId.clear();
+        university.clear();
         password.clear();
         username.clear();
 
     }
 
-    private void saveAlert(Student newAdmin) {
+    private void saveAlert(Student newStudent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
-        alert.setContentText("Admin " + newAdmin.getFirstName() + " " + newAdmin.getLastName() + " has been saved successfully");
+        alert.setContentText("Student " + newStudent.getFirstName() + " " + newStudent.getLastName() + " has been saved successfully");
         alert.showAndWait();
     }
 
-    private void updateAlert(Student admin) {
+    private void updateAlert(Student student) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
-        alert.setContentText("Admin " + admin.getFirstName() + " " + admin.getLastName() + " has been updated successfully");
+        alert.setContentText("Student " + student.getFirstName() + " " + student.getLastName() + " has been updated successfully");
         alert.showAndWait();
     }
 
@@ -234,29 +234,30 @@ public class StudentController implements Initializable {
 
     // @Override
     public void initialize(URL location, ResourceBundle resources) {
-        adminTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        studentTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnProperties();
-        loadAdminDetails();
+        loadStudentDetails();
     }
 
     private void setColumnProperties() {
-        colAdminId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colStudentId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         colEmploymentDate.setCellValueFactory(new PropertyValueFactory<>("employmentDate"));
         colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
-        colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        colEngineerId.setCellValueFactory(new PropertyValueFactory<>("engineerId"));
+        colUniversity.setCellValueFactory(new PropertyValueFactory<>("university"));
         colPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
         colUsername.setCellValueFactory(new PropertyValueFactory<>("userName"));
         colEdit.setCellFactory(cellFactory);
     }
 
 
-    javafx.util.Callback<TableColumn<Admin, Boolean>, TableCell<Admin, Boolean>> cellFactory =
-            new Callback<TableColumn<Admin, Boolean>, TableCell<Admin, Boolean>>() {
+    javafx.util.Callback<TableColumn<Student, Boolean>, TableCell<Student, Boolean>> cellFactory =
+            new Callback<TableColumn<Student, Boolean>, TableCell<Student, Boolean>>() {
                 @Override
-                public TableCell<Admin, Boolean> call(final TableColumn<Admin, Boolean> param) {
-                    final TableCell<Admin, Boolean> cell = new TableCell<Admin, Boolean>() {
+                public TableCell<Student, Boolean> call(final TableColumn<Student, Boolean> param) {
+                    final TableCell<Student, Boolean> cell = new TableCell<Student, Boolean>() {
 
                         Image imgEdit = new Image(getClass().getResourceAsStream("/images/edit.png"));
                         final Button btnEdit = new Button();
@@ -268,8 +269,8 @@ public class StudentController implements Initializable {
                                 setText(null);
                             } else {
                                 btnEdit.setOnAction(event -> {
-                                    Admin admin = getTableView().getItems().get(getIndex());
-                                    updateAdmin(admin);
+                                    Student student = getTableView().getItems().get(getIndex());
+                                    updateStudent(student);
                                 });
                                 btnEdit.setStyle("-fx-background-color: transparent;");
                                 javafx.scene.image.ImageView iv = new ImageView();
@@ -284,24 +285,25 @@ public class StudentController implements Initializable {
                                 setText(null);
                             }
                         }
-                        private void updateAdmin(Admin admin) {
-                            adminId.setText(Long.toString(admin.getId()));
-                            firstName.setText(admin.getFirstName());
-                            lastName.setText(admin.getLastName());
-                            employmentDate.setValue(admin.getEmploymentDate());
-                            salary.setText(Long.toString(admin.getSalary()));
-                            phoneNumber.setText(Long.toString(admin.getPhoneNumber()));
-                            password.setText(admin.getPassword());
-                            username.setText(admin.getUserName());
+                        private void updateStudent(Student student) {
+                            studentId.setText(Long.toString(student.getId()));
+                            firstName.setText(student.getFirstName());
+                            lastName.setText(student.getLastName());
+                            employmentDate.setValue(student.getEmploymentDate());
+                            salary.setText(Long.toString(student.getSalary()));
+                            engineerId.setText(Long.toString(student.getEngineerId()));
+                            university.setText(student.getUniversity());
+                            password.setText(student.getPassword());
+                            username.setText(student.getUserName());
                         }
                     };
                     return cell;
                 }
             };
-    private void loadAdminDetails() {
-        adminList.clear();
-        adminList.addAll(adminService.findAll());
-        adminTable.setItems(adminList);
+    private void loadStudentDetails() {
+        studentList.clear();
+        studentList.addAll(studentService.findAll());
+        studentTable.setItems(studentList);
 
     }
     private boolean validate(String field, String value, String pattern){
