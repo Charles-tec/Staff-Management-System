@@ -17,13 +17,13 @@
          </font>
       </Label>
 
-      <TextField fx:id="userName" layoutX="98.0" layoutY="92.0" prefHeight="36.0" prefWidth="204.0" promptText="Username" />
-      <PasswordField fx:id="password" layoutX="98.0" layoutY="141.0" onAction="#login" prefHeight="36.0" prefWidth="204.0" promptText="Password" />
-      <SplitMenuButton fx:id="btnLogin" layoutX="215.0" layoutY="193.0" mnemonicParsing="false"  prefHeight="30.0" prefWidth="250.0" styleClass="btnGreen" text="Select the Employee Type" textFill="BLACK">
+      <TextField fx:id="userName" layoutX="98.0" layoutY="92.0" prefHeight="36.0" prefWidth="230.0" promptText="Username" />
+      <PasswordField fx:id="password" layoutX="98.0" layoutY="141.0" onAction="#login" prefHeight="36.0" prefWidth="230.0" promptText="Password" />
+      <SplitMenuButton fx:id="btnLogin" layoutX="99.0" layoutY="193.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="230.0" styleClass="btnGreen" text="Select the Employee Type" textFill="BLACK">
          <items>
-            <MenuItem text="Administrators" onAction="#login" />
-            <MenuItem text="Engineers" onAction="#login1" />
-            <MenuItem text="Students" onAction="#login2" />
+            <MenuItem onAction="#login" text="Administrators" />
+            <MenuItem onAction="#login1" text="Engineers" />
+            <MenuItem onAction="#login2" text="Students" />
 
          </items>
          <font>
