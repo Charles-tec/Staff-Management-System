@@ -3,7 +3,6 @@ package com.tec.staffmanagementsystem.entities;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -12,6 +11,14 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @RequiredArgsConstructor
+/**
+ *
+ * @author tec
+ */
+
+/**
+ * The class Engineer extends base entity
+ */
 public class Engineer extends BaseEntity {
 
     public static final long serialVersionUID = -1312649373937694507L;

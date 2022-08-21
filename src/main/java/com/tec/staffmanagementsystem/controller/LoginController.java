@@ -12,9 +12,18 @@ import javafx.scene.control.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
-
 import java.io.IOException;
+
+
+/**
+ *
+ * @author tec
+ */
 @Controller
+
+/**
+ * The class Login controller implements initializable
+ */
 public class LoginController implements Initializable {
     @FXML
     private SplitMenuButton btnLogin;
@@ -50,7 +59,16 @@ public class LoginController implements Initializable {
     private StageManager stageManager;
 
     @FXML
+
+/**
+ *
+ * Login
+ *
+ * @param event  the event
+ * @throws   IOException
+ */
     private void login(ActionEvent event) throws IOException {
+
         if(adminService.authenticate(getUserName(), getPassword())){
             stageManager.switchScene(FxmlView.ADMIN);
 
@@ -60,7 +78,16 @@ public class LoginController implements Initializable {
         }
     }
     @FXML
+
+/**
+ *
+ * Login1
+ *
+ * @param event  the event
+ * @throws   IOException
+ */
     private void login1(ActionEvent event) throws IOException {
+
         if(engineerService.authenticate(getUserName(), getPassword())){
             stageManager.switchScene(FxmlView.ENGINEER);
 
@@ -70,7 +97,16 @@ public class LoginController implements Initializable {
         }
     }
     @FXML
+
+/**
+ *
+ * Login2
+ *
+ * @param event  the event
+ * @throws   IOException
+ */
     private void login2(ActionEvent event) throws IOException {
+
         if(studentService.authenticate(getUserName(), getPassword())){
             stageManager.switchScene(FxmlView.STUDENT);
 
@@ -80,14 +116,39 @@ public class LoginController implements Initializable {
         }
     }
 
+
+    /**
+     *
+     * Gets the user name
+     *
+     * @return the user name
+     */
     public String getUserName() {
+
         return userName.getText();
     }
+
+    /**
+     *
+     * Gets the password
+     *
+     * @return the password
+     */
     public String getPassword() {
+
         return password.getText();
     }
-   @Override
+    @Override
+
+/**
+ *
+ * Initialize
+ *
+ * @param location  the location
+ * @param resources  the resources
+ */
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+
         // TODO
     }
 

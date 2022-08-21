@@ -4,6 +4,10 @@ import com.tec.staffmanagementsystem.entities.Admin;
 import com.tec.staffmanagementsystem.generic.GenericService;
 import org.springframework.stereotype.Service;
 
+/**
+ *
+ * @author tec
+ */
 public interface AdminService extends GenericService<Admin> {
     boolean authenticate(String userName, String password);
 

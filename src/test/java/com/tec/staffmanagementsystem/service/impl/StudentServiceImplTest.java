@@ -1,24 +1,16 @@
 package com.tec.staffmanagementsystem.service.impl;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import com.tec.staffmanagementsystem.entities.Student;
 import com.tec.staffmanagementsystem.repository.StudentRepository;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Ignore;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +18,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ *
+ * @author tec
+ */
 @ContextConfiguration(classes = {StudentServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class StudentServiceImplTest {

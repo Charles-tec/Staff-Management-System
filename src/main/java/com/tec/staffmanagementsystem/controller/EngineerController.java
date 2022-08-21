@@ -19,9 +19,7 @@ import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
-
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -30,7 +28,16 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ *
+ * @author tec
+ */
 @Controller
+
+/**
+ * The class Engineer controller implements initializable
+ */
 public class EngineerController implements Initializable {
 
     @FXML
@@ -109,12 +116,29 @@ public class EngineerController implements Initializable {
     private ObservableList<Engineer> engineerList = FXCollections.observableArrayList();
 
     @FXML
+
+/**
+ *
+ * Exit
+ *
+ * @param event  the event
+ */
     private void exit(ActionEvent event) {
+
         Platform.exit();
     }
 
     @FXML
+
+/**
+ *
+ * Logout
+ *
+ * @param event  the event
+ * @throws   IOException
+ */
     private void logout(ActionEvent event) throws IOException {
+
         stageManager.switchScene(FxmlView.LOGIN);
     }
 
@@ -124,7 +148,15 @@ public class EngineerController implements Initializable {
     }
 
     @FXML
+
+/**
+ *
+ * Save engineer
+ *
+ * @param event  the event
+ */
     private void saveEngineer(ActionEvent event) {
+
 
         if (true){
 
@@ -164,7 +196,15 @@ public class EngineerController implements Initializable {
     }
 
     @FXML
+
+/**
+ *
+ * Delete engineers
+ *
+ * @param event  the event
+ */
     private void deleteEngineers(ActionEvent event) {
+
         List<Engineer> engineers = engineerTable.getSelectionModel().getSelectedItems();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -178,7 +218,14 @@ public class EngineerController implements Initializable {
         loadEngineerDetails();
     }
 
+
+    /**
+     *
+     * Clear fields
+     *
+     */
     private void clearFields() {
+
         engineerId.setText(null);
         firstName.clear();
         lastName.clear();
@@ -190,7 +237,15 @@ public class EngineerController implements Initializable {
 
     }
 
+
+    /**
+     *
+     * Save alert
+     *
+     * @param newEngineer  the new engineer
+     */
     private void saveAlert(Engineer newEngineer) {
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
@@ -198,7 +253,15 @@ public class EngineerController implements Initializable {
         alert.showAndWait();
     }
 
+
+    /**
+     *
+     * Update alert
+     *
+     * @param engineer  the engineer
+     */
     private void updateAlert(Engineer engineer) {
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
@@ -206,30 +269,78 @@ public class EngineerController implements Initializable {
         alert.showAndWait();
     }
 
+
+    /**
+     *
+     * Gets the first name
+     *
+     * @return the first name
+     */
     public String getFirstName() {
+
         return firstName.getText();
     }
 
+
+    /**
+     *
+     * Gets the last name
+     *
+     * @return the last name
+     */
     public String getLastName() {
+
         return lastName.getText();
     }
 
+
+    /**
+     *
+     * Gets the user name
+     *
+     * @return the user name
+     */
     public String getUserName() {
+
         return username.getText();
     }
 
+
+    /**
+     *
+     * Gets the password
+     *
+     * @return the password
+     */
     public String getPassword() {
+
         return password.getText();
     }
 
-   @Override
+    @Override
+
+/**
+ *
+ * Initialize
+ *
+ * @param location  the location
+ * @param resources  the resources
+ */
     public void initialize(URL location, ResourceBundle resources) {
+
         engineerTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnProperties();
         loadEngineerDetails();
     }
 
+
+    /**
+     *
+     * Sets the column properties
+     *
+     */
     private void setColumnProperties() {
+
         colEngineerId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -245,13 +356,32 @@ public class EngineerController implements Initializable {
     javafx.util.Callback<TableColumn<Engineer, Boolean>, TableCell<Engineer, Boolean>> cellFactory =
             new Callback<TableColumn<Engineer, Boolean>, TableCell<Engineer, Boolean>>() {
                 @Override
+
+/**
+ *
+ * Call
+ *
+ * @param TableColumn<Engineer  the table column< engineer
+ * @param param  the param
+ * @return Boolean>
+ */
                 public TableCell<Engineer, Boolean> call(final TableColumn<Engineer, Boolean> param) {
+
                     final TableCell<Engineer, Boolean> cell = new TableCell<Engineer, Boolean>() {
 
                         Image imgEdit = new Image(getClass().getResourceAsStream("/images/edit.png"));
                         final Button btnEdit = new Button();
                         @Override
+
+/**
+ *
+ * Update item
+ *
+ * @param item  the item
+ * @param empty  the empty
+ */
                         public void updateItem(Boolean item, boolean empty) {
+
                             super.updateItem(item, empty);
                             if (empty) {
                                 setGraphic(null);
@@ -274,7 +404,15 @@ public class EngineerController implements Initializable {
                                 setText(null);
                             }
                         }
+
+                        /**
+                         *
+                         * Update engineer
+                         *
+                         * @param engineer  the engineer
+                         */
                         private void updateEngineer(Engineer engineer) {
+
                             engineerId.setText(Long.toString(engineer.getId()));
                             firstName.setText(engineer.getFirstName());
                             lastName.setText(engineer.getLastName());
@@ -288,13 +426,31 @@ public class EngineerController implements Initializable {
                     return cell;
                 }
             };
+
+    /**
+     *
+     * Load engineer details
+     *
+     */
     private void loadEngineerDetails() {
-       engineerList.clear();
+
+        engineerList.clear();
         engineerList.addAll(engineerService.findAll());
         engineerTable.setItems(engineerList);
 
     }
+
+    /**
+     *
+     * Validate
+     *
+     * @param field  the field
+     * @param value  the value
+     * @param pattern  the pattern
+     * @return boolean
+     */
     private boolean validate(String field, String value, String pattern){
+
         if(!value.isEmpty()){
             Pattern p = Pattern.compile(pattern);
             Matcher m = p.matcher(value);
@@ -309,7 +465,17 @@ public class EngineerController implements Initializable {
             return false;
         }
     }
+
+    /**
+     *
+     * Empty validation
+     *
+     * @param field  the field
+     * @param empty  the empty
+     * @return boolean
+     */
     private boolean emptyValidation(String field, boolean empty){
+
         if(!empty){
             return true;
         }else{
@@ -317,7 +483,16 @@ public class EngineerController implements Initializable {
             return false;
         }
     }
+
+    /**
+     *
+     * Validation alert
+     *
+     * @param field  the field
+     * @param empty  the empty
+     */
     private void validationAlert(String field, boolean empty){
+
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Validation Error");
         alert.setHeaderText(null);

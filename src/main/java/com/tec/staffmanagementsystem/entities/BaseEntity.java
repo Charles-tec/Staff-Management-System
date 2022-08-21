@@ -4,7 +4,6 @@ import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -14,6 +13,14 @@ import java.time.LocalDate;
 @DynamicInsert
 @DynamicUpdate
 @EntityListeners({AuditingEntityListener.class})
+/**
+ *
+ * @author tec
+ */
+
+/**
+ * The class Base entity implements serializable
+ */
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = -1312649373937694507L;

@@ -19,18 +19,24 @@ import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
-
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Observable;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *
+ * @author tec
+ */
 @Controller
+
+/**
+ * The class Admin controller implements initializable
+ */
 public class AdminController implements Initializable {
     @FXML
     private Button btnLogout;
@@ -108,12 +114,29 @@ public class AdminController implements Initializable {
     private ObservableList<Admin> adminList = FXCollections.observableArrayList();
 
     @FXML
+
+/**
+ *
+ * Exit
+ *
+ * @param event  the event
+ */
     private void exit(ActionEvent event) {
+
         Platform.exit();
     }
 
     @FXML
+
+/**
+ *
+ * Logout
+ *
+ * @param event  the event
+ * @throws   IOException
+ */
     private void logout(ActionEvent event) throws IOException {
+
         stageManager.switchScene(FxmlView.LOGIN);
     }
 
@@ -123,7 +146,15 @@ public class AdminController implements Initializable {
     }
 
     @FXML
+
+/**
+ *
+ * Save admin
+ *
+ * @param event  the event
+ */
     private void saveAdmin(ActionEvent event) {
+
 
         if (true){
 
@@ -154,7 +185,7 @@ public class AdminController implements Initializable {
                 admin.setPassword(password.getText());
                 admin.setUserName(username.getText());
                 Admin updatedAdmin = adminService.save(admin);
-               updateAlert(updatedAdmin);
+                updateAlert(updatedAdmin);
             }
             clearFields();
             loadAdminDetails();
@@ -163,7 +194,15 @@ public class AdminController implements Initializable {
     }
 
     @FXML
+
+/**
+ *
+ * Delete admins
+ *
+ * @param event  the event
+ */
     private void deleteAdmins(ActionEvent event) {
+
         List<Admin> admins = adminTable.getSelectionModel().getSelectedItems();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -177,7 +216,14 @@ public class AdminController implements Initializable {
         loadAdminDetails();
     }
 
+
+    /**
+     *
+     * Clear fields
+     *
+     */
     private void clearFields() {
+
         adminId.setText(null);
         firstName.clear();
         lastName.clear();
@@ -189,7 +235,15 @@ public class AdminController implements Initializable {
 
     }
 
+
+    /**
+     *
+     * Save alert
+     *
+     * @param newAdmin  the new admin
+     */
     private void saveAlert(Admin newAdmin) {
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
@@ -197,7 +251,15 @@ public class AdminController implements Initializable {
         alert.showAndWait();
     }
 
+
+    /**
+     *
+     * Update alert
+     *
+     * @param admin  the admin
+     */
     private void updateAlert(Admin admin) {
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
@@ -205,30 +267,78 @@ public class AdminController implements Initializable {
         alert.showAndWait();
     }
 
+
+    /**
+     *
+     * Gets the first name
+     *
+     * @return the first name
+     */
     public String getFirstName() {
+
         return firstName.getText();
     }
 
+
+    /**
+     *
+     * Gets the last name
+     *
+     * @return the last name
+     */
     public String getLastName() {
+
         return lastName.getText();
     }
 
+
+    /**
+     *
+     * Gets the user name
+     *
+     * @return the user name
+     */
     public String getUserName() {
+
         return username.getText();
     }
 
+
+    /**
+     *
+     * Gets the password
+     *
+     * @return the password
+     */
     public String getPassword() {
+
         return password.getText();
     }
 
-   @Override
+    @Override
+
+/**
+ *
+ * Initialize
+ *
+ * @param location  the location
+ * @param resources  the resources
+ */
     public void initialize(URL location, ResourceBundle resources) {
+
         adminTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnProperties();
         loadAdminDetails();
     }
 
+
+    /**
+     *
+     * Sets the column properties
+     *
+     */
     private void setColumnProperties() {
+
         colAdminId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -241,59 +351,104 @@ public class AdminController implements Initializable {
     }
 
 
-        javafx.util.Callback<TableColumn<Admin, Boolean>, TableCell<Admin, Boolean>> cellFactory =
-                new Callback<TableColumn<Admin, Boolean>, TableCell<Admin, Boolean>>() {
-            @Override
-            public TableCell<Admin, Boolean> call(final TableColumn<Admin, Boolean> param) {
-                final TableCell<Admin, Boolean> cell = new TableCell<Admin, Boolean>() {
+    javafx.util.Callback<TableColumn<Admin, Boolean>, TableCell<Admin, Boolean>> cellFactory =
+            new Callback<TableColumn<Admin, Boolean>, TableCell<Admin, Boolean>>() {
+                @Override
 
-                    Image imgEdit = new Image(getClass().getResourceAsStream("/images/edit.png"));
-                    final Button btnEdit = new Button();
-                    @Override
-                    public void updateItem(Boolean item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                            setText(null);
-                        } else {
+/**
+ *
+ * Call
+ *
+ * @param TableColumn<Admin  the table column< admin
+ * @param param  the param
+ * @return Boolean>
+ */
+                public TableCell<Admin, Boolean> call(final TableColumn<Admin, Boolean> param) {
+
+                    final TableCell<Admin, Boolean> cell = new TableCell<Admin, Boolean>() {
+
+                        Image imgEdit = new Image(getClass().getResourceAsStream("/images/edit.png"));
+                        final Button btnEdit = new Button();
+                        @Override
+
+/**
+ *
+ * Update item
+ *
+ * @param item  the item
+ * @param empty  the empty
+ */
+                        public void updateItem(Boolean item, boolean empty) {
+
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                setGraphic(null);
+                                setText(null);
+                            } else {
                                 btnEdit.setOnAction(event -> {
-                                Admin admin = getTableView().getItems().get(getIndex());
-                                updateAdmin(admin);
-                            });
-                            btnEdit.setStyle("-fx-background-color: transparent;");
-                            javafx.scene.image.ImageView iv = new ImageView();
-                            iv.setImage(imgEdit);
-                            iv.setPreserveRatio(true);
-                            iv.setSmooth(true);
-                            iv.setCache(true);
-                            btnEdit.setGraphic(iv);
+                                    Admin admin = getTableView().getItems().get(getIndex());
+                                    updateAdmin(admin);
+                                });
+                                btnEdit.setStyle("-fx-background-color: transparent;");
+                                javafx.scene.image.ImageView iv = new ImageView();
+                                iv.setImage(imgEdit);
+                                iv.setPreserveRatio(true);
+                                iv.setSmooth(true);
+                                iv.setCache(true);
+                                btnEdit.setGraphic(iv);
 
-                            setGraphic(btnEdit);
-                            setAlignment(Pos.CENTER);
-                            setText(null);
+                                setGraphic(btnEdit);
+                                setAlignment(Pos.CENTER);
+                                setText(null);
+                            }
                         }
-                    }
-                    private void updateAdmin(Admin admin) {
-                        adminId.setText(Long.toString(admin.getId()));
-                        firstName.setText(admin.getFirstName());
-                        lastName.setText(admin.getLastName());
-                        employmentDate.setValue(admin.getEmploymentDate());
-                        salary.setText(Long.toString(admin.getSalary()));
-                        phoneNumber.setText(Long.toString(admin.getPhoneNumber()));
-                        password.setText(admin.getPassword());
-                        username.setText(admin.getUserName());
-                    }
-                };
-                return cell;
-            }
-        };
-        private void loadAdminDetails() {
-            adminList.clear();
-            adminList.addAll(adminService.findAll());
-            adminTable.setItems(adminList);
 
-        }
+                        /**
+                         *
+                         * Update admin
+                         *
+                         * @param admin  the admin
+                         */
+                        private void updateAdmin(Admin admin) {
+
+                            adminId.setText(Long.toString(admin.getId()));
+                            firstName.setText(admin.getFirstName());
+                            lastName.setText(admin.getLastName());
+                            employmentDate.setValue(admin.getEmploymentDate());
+                            salary.setText(Long.toString(admin.getSalary()));
+                            phoneNumber.setText(Long.toString(admin.getPhoneNumber()));
+                            password.setText(admin.getPassword());
+                            username.setText(admin.getUserName());
+                        }
+                    };
+                    return cell;
+                }
+            };
+
+    /**
+     *
+     * Load admin details
+     *
+     */
+    private void loadAdminDetails() {
+
+        adminList.clear();
+        adminList.addAll(adminService.findAll());
+        adminTable.setItems(adminList);
+
+    }
+
+    /**
+     *
+     * Validate
+     *
+     * @param field  the field
+     * @param value  the value
+     * @param pattern  the pattern
+     * @return boolean
+     */
     private boolean validate(String field, String value, String pattern){
+
         if(!value.isEmpty()){
             Pattern p = Pattern.compile(pattern);
             Matcher m = p.matcher(value);
@@ -308,7 +463,17 @@ public class AdminController implements Initializable {
             return false;
         }
     }
+
+    /**
+     *
+     * Empty validation
+     *
+     * @param field  the field
+     * @param empty  the empty
+     * @return boolean
+     */
     private boolean emptyValidation(String field, boolean empty){
+
         if(!empty){
             return true;
         }else{
@@ -316,7 +481,16 @@ public class AdminController implements Initializable {
             return false;
         }
     }
+
+    /**
+     *
+     * Validation alert
+     *
+     * @param field  the field
+     * @param empty  the empty
+     */
     private void validationAlert(String field, boolean empty){
+
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Validation Error");
         alert.setHeaderText(null);

@@ -1,3 +1,5 @@
+
+
 package com.tec.staffmanagementsystem.controller;
 
 import com.tec.staffmanagementsystem.config.StageManager;
@@ -20,7 +22,6 @@ import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
-
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -30,7 +31,16 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ *
+ * @author tec
+ */
 @Controller
+
+/**
+ * The class Student controller implements initializable
+ */
 public class StudentController implements Initializable {
     @FXML
     private Button btnLogout;
@@ -112,12 +122,29 @@ public class StudentController implements Initializable {
     private ObservableList<Student> studentList = FXCollections.observableArrayList();
 
     @FXML
+
+/**
+ *
+ * Exit
+ *
+ * @param event  the event
+ */
     private void exit(ActionEvent event) {
+
         Platform.exit();
     }
 
     @FXML
+
+/**
+ *
+ * Logout
+ *
+ * @param event  the event
+ * @throws   IOException
+ */
     private void logout(ActionEvent event) throws IOException {
+
         stageManager.switchScene(FxmlView.LOGIN);
     }
 
@@ -127,7 +154,15 @@ public class StudentController implements Initializable {
     }
 
     @FXML
+
+/**
+ *
+ * Save student
+ *
+ * @param event  the event
+ */
     private void saveStudent(ActionEvent event) {
+
         Engineer engineer=new Engineer();
 
         if (true){
@@ -143,8 +178,8 @@ public class StudentController implements Initializable {
                     student.setSalary(Long.parseLong(salary.getText()));
                     student.setEngineerId(Long.parseLong(engineerId.getText()));
                     student.setUniversity(university.getText());
-                   student.setPassword(password.getText());
-                   student.setUserName(username.getText());
+                    student.setPassword(password.getText());
+                    student.setUserName(username.getText());
 
                     Student newStudent = studentService.save(student);
 
@@ -171,7 +206,15 @@ public class StudentController implements Initializable {
     }
 
     @FXML
+
+/**
+ *
+ * Delete students
+ *
+ * @param event  the event
+ */
     private void deleteStudents(ActionEvent event) {
+
         List<Student> students  = studentTable.getSelectionModel().getSelectedItems();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -185,7 +228,14 @@ public class StudentController implements Initializable {
         loadStudentDetails();
     }
 
+
+    /**
+     *
+     * Clear fields
+     *
+     */
     private void clearFields() {
+
         studentId.setText(null);
         firstName.clear();
         lastName.clear();
@@ -198,7 +248,15 @@ public class StudentController implements Initializable {
 
     }
 
+
+    /**
+     *
+     * Save alert
+     *
+     * @param newStudent  the new student
+     */
     private void saveAlert(Student newStudent) {
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
@@ -206,7 +264,15 @@ public class StudentController implements Initializable {
         alert.showAndWait();
     }
 
+
+    /**
+     *
+     * Update alert
+     *
+     * @param student  the student
+     */
     private void updateAlert(Student student) {
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
@@ -214,30 +280,78 @@ public class StudentController implements Initializable {
         alert.showAndWait();
     }
 
+
+    /**
+     *
+     * Gets the first name
+     *
+     * @return the first name
+     */
     public String getFirstName() {
+
         return firstName.getText();
     }
 
+
+    /**
+     *
+     * Gets the last name
+     *
+     * @return the last name
+     */
     public String getLastName() {
+
         return lastName.getText();
     }
 
+
+    /**
+     *
+     * Gets the user name
+     *
+     * @return the user name
+     */
     public String getUserName() {
+
         return username.getText();
     }
 
+
+    /**
+     *
+     * Gets the password
+     *
+     * @return the password
+     */
     public String getPassword() {
+
         return password.getText();
     }
 
     // @Override
+
+    /**
+     *
+     * Initialize
+     *
+     * @param location  the location
+     * @param resources  the resources
+     */
     public void initialize(URL location, ResourceBundle resources) {
+
         studentTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnProperties();
         loadStudentDetails();
     }
 
+
+    /**
+     *
+     * Sets the column properties
+     *
+     */
     private void setColumnProperties() {
+
         colStudentId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -254,13 +368,32 @@ public class StudentController implements Initializable {
     javafx.util.Callback<TableColumn<Student, Boolean>, TableCell<Student, Boolean>> cellFactory =
             new Callback<TableColumn<Student, Boolean>, TableCell<Student, Boolean>>() {
                 @Override
+
+/**
+ *
+ * Call
+ *
+ * @param TableColumn<Student  the table column< student
+ * @param param  the param
+ * @return Boolean>
+ */
                 public TableCell<Student, Boolean> call(final TableColumn<Student, Boolean> param) {
+
                     final TableCell<Student, Boolean> cell = new TableCell<Student, Boolean>() {
 
                         Image imgEdit = new Image(getClass().getResourceAsStream("/images/edit.png"));
                         final Button btnEdit = new Button();
                         @Override
+
+/**
+ *
+ * Update item
+ *
+ * @param item  the item
+ * @param empty  the empty
+ */
                         public void updateItem(Boolean item, boolean empty) {
+
                             super.updateItem(item, empty);
                             if (empty) {
                                 setGraphic(null);
@@ -283,7 +416,15 @@ public class StudentController implements Initializable {
                                 setText(null);
                             }
                         }
+
+                        /**
+                         *
+                         * Update student
+                         *
+                         * @param student  the student
+                         */
                         private void updateStudent(Student student) {
+
                             studentId.setText(Long.toString(student.getId()));
                             firstName.setText(student.getFirstName());
                             lastName.setText(student.getLastName());
@@ -298,13 +439,31 @@ public class StudentController implements Initializable {
                     return cell;
                 }
             };
+
+    /**
+     *
+     * Load student details
+     *
+     */
     private void loadStudentDetails() {
+
         studentList.clear();
         studentList.addAll(studentService.findAll());
         studentTable.setItems(studentList);
 
     }
+
+    /**
+     *
+     * Validate
+     *
+     * @param field  the field
+     * @param value  the value
+     * @param pattern  the pattern
+     * @return boolean
+     */
     private boolean validate(String field, String value, String pattern){
+
         if(!value.isEmpty()){
             Pattern p = Pattern.compile(pattern);
             Matcher m = p.matcher(value);
@@ -319,7 +478,17 @@ public class StudentController implements Initializable {
             return false;
         }
     }
+
+    /**
+     *
+     * Empty validation
+     *
+     * @param field  the field
+     * @param empty  the empty
+     * @return boolean
+     */
     private boolean emptyValidation(String field, boolean empty){
+
         if(!empty){
             return true;
         }else{
@@ -327,7 +496,16 @@ public class StudentController implements Initializable {
             return false;
         }
     }
+
+    /**
+     *
+     * Validation alert
+     *
+     * @param field  the field
+     * @param empty  the empty
+     */
     private void validationAlert(String field, boolean empty){
+
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Validation Error");
         alert.setHeaderText(null);

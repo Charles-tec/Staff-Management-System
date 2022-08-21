@@ -3,8 +3,6 @@ package com.tec.staffmanagementsystem.entities;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -13,6 +11,14 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @RequiredArgsConstructor
+/**
+ *
+ * @author tec
+ */
+
+/**
+ * The class Admin extends base entity
+ */
 public class Admin extends BaseEntity {
     private static final long serialVersionUID = -1312649373937694507L;
 

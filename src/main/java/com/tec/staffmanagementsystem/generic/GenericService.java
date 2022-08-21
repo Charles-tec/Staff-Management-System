@@ -2,6 +2,11 @@ package com.tec.staffmanagementsystem.generic;
 
 import java.util.List;
 
+
+/**
+ *
+ * @author tec
+ */
 public interface GenericService <T extends Object> {
 
     T save(T entity);
