@@ -1,7 +1,0 @@
-
-\
-java:S1126@"AReplace this if-then-else statement by a single return statement.(§¬şÚøÿÿÿÿ
-k
-java:S1128"IRemove this unused import 'com.tec.staffmanagementsystem.entities.Admin'.(”ªÿãøÿÿÿÿ8¨Ñ¢Ó«0
-w
-java:S1128"URemove this unused import 'com.tec.staffmanagementsystem.repository.AdminRepository'.(¶Å‹Ùúÿÿÿÿ8¨Ñ¢Ó«0

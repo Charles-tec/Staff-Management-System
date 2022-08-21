@@ -1,0 +1,20 @@
+
+?
+java:S1604ÿ"(Make this anonymous inner class a lambda(‚·Šº
+W	java:S110‚"<This class has 9 parents which is greater than 5 authorized.(†‡ööûÿÿÿÿ
+x
+java:S1488‚"\Immediately return this expression instead of assigning it to the temporary variable "cell".(†‡ööûÿÿÿÿ
+X
+java:S4973‡"<Strings and Boxed types should be compared using "equals()".(–ñÚÌûÿÿÿÿ
+L
+java:S3655·"5Call "action.isPresent()" before accessing the value.(£ÕÀÎ
+
+java:S1130x"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(Ñó]
+X
+java:S1854ƒ"<Remove this useless assignment to local variable "engineer".(²²­‰øÿÿÿÿ
+I
+java:S1481ƒ"-Remove this unused "engineer" local variable.(²²­‰øÿÿÿÿ
+I
+java:S1144³"-Remove this unused private "validate" method.(ÄƒÄ¬ûÿÿÿÿ
+K
+java:S1144Â"4Remove this unused private "emptyValidation" method.(Ý´º²
