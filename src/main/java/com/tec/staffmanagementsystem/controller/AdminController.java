@@ -7,6 +7,8 @@ import com.tec.staffmanagementsystem.view.FxmlView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,6 +42,10 @@ import java.util.regex.Pattern;
 public class AdminController implements Initializable {
     @FXML
     private Button btnLogout;
+
+    @FXML
+    private TextField searchAdmins;
+
 
 
     @FXML
@@ -153,6 +159,8 @@ public class AdminController implements Initializable {
  *
  * @param event  the event
  */
+
+
     private void saveAdmin(ActionEvent event) {
 
 
@@ -191,6 +199,51 @@ public class AdminController implements Initializable {
             loadAdminDetails();
         }
 
+    }
+
+    private void filterData(){
+        FilteredList<Admin> searchedData = new FilteredList<>(adminList, p -> true);
+        searchAdmins.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchedData.setPredicate(admin -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (admin.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (admin.getLastName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (admin.getUserName().toLowerCase().contains(lowerCaseFilter)) {
+                    adminTable.getSelectionModel().select(admin);
+                    showAdminDetails(admin);
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<Admin> sortedData = new SortedList<>(searchedData);
+        sortedData.comparatorProperty().bind(adminTable.comparatorProperty());
+        adminTable.setItems(sortedData);
+
+
+    }
+    private void showAdminDetails(Admin admin) {
+        adminId.setText(String.valueOf(admin.getId()));
+        firstName.setText(admin.getFirstName());
+        lastName.setText(admin.getLastName());
+        employmentDate.setValue(admin.getEmploymentDate());
+        salary.setText(String.valueOf(admin.getSalary()));
+        phoneNumber.setText(String.valueOf(admin.getPhoneNumber()));
+        password.setText(admin.getPassword());
+        username.setText(admin.getUserName());
+    }
+    public void searchRequestFocus(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                searchAdmins.requestFocus();
+            }
+        });
     }
 
     @FXML
@@ -329,6 +382,8 @@ public class AdminController implements Initializable {
         adminTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnProperties();
         loadAdminDetails();
+        filterData();
+        searchRequestFocus();
     }
 
 

@@ -1,12 +1,15 @@
 package com.tec.staffmanagementsystem.controller;
 
 import com.tec.staffmanagementsystem.config.StageManager;
+import com.tec.staffmanagementsystem.entities.Admin;
 import com.tec.staffmanagementsystem.entities.Engineer;
 import com.tec.staffmanagementsystem.service.EngineerService;
 import com.tec.staffmanagementsystem.view.FxmlView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -43,7 +46,8 @@ public class EngineerController implements Initializable {
     @FXML
     private Button btnLogout;
 
-
+    @FXML
+    private TextField searchEngineers;
     @FXML
     private Label engineerId;
     @FXML
@@ -194,6 +198,52 @@ public class EngineerController implements Initializable {
         }
 
     }
+    private void filterData(){
+        FilteredList<Engineer> searchedData = new FilteredList<>(engineerList, p -> true);
+        searchEngineers.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchedData.setPredicate(engineer -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (engineer.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (engineer.getLastName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (engineer.getUserName().toLowerCase().contains(lowerCaseFilter)) {
+                    engineerTable.getSelectionModel().select(engineer);
+                    showAdminDetails(engineer);
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<Engineer> sortedData = new SortedList<>(searchedData);
+        sortedData.comparatorProperty().bind(engineerTable.comparatorProperty());
+        engineerTable.setItems(sortedData);
+
+
+    }
+    private void showAdminDetails(Engineer engineer) {
+        engineerId.setText(String.valueOf(engineer.getId()));
+        firstName.setText(engineer.getFirstName());
+        lastName.setText(engineer.getLastName());
+        employmentDate.setValue(engineer.getEmploymentDate());
+        salary.setText(String.valueOf(engineer.getSalary()));
+        email.setText(engineer.getEmail());
+        password.setText(engineer.getPassword());
+        username.setText(engineer.getUserName());
+
+    }
+    public void searchRequestFocus(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                searchEngineers.requestFocus();
+            }
+        });
+    }
+
 
     @FXML
 
@@ -331,6 +381,8 @@ public class EngineerController implements Initializable {
         engineerTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnProperties();
         loadEngineerDetails();
+        filterData();
+        searchRequestFocus();
     }
 
 

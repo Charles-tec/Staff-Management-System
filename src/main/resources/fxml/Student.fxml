@@ -142,6 +142,11 @@
             <children>
                 <HBox alignment="TOP_RIGHT" prefHeight="41.0" prefWidth="640.0">
                     <children>
+                        <TextField fx:id="searchStudents" layoutX="14.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" prefWidth="132.0" promptText="Search name" styleClass="search-field">
+                            <VBox.margin>
+                                <Insets left="10.0" top="6.0" />
+                            </VBox.margin>
+                        </TextField>
                         <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" prefHeight="22.0" prefWidth="70.0" styleClass="background" text="Logout" textFill="#fff9f9" textOverrun="CLIP">
                             <font>
                                 <Font size="14.0" />

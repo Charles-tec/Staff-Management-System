@@ -10,6 +10,8 @@ import com.tec.staffmanagementsystem.view.FxmlView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -45,6 +47,8 @@ public class StudentController implements Initializable {
     @FXML
     private Button btnLogout;
 
+    @FXML
+    private TextField searchStudents;
 
     @FXML
     private Label studentId;
@@ -204,6 +208,53 @@ public class StudentController implements Initializable {
         }
 
     }
+    private void filterData(){
+        FilteredList<Student> searchedData = new FilteredList<>(studentList, p -> true);
+        searchStudents.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchedData.setPredicate(student -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (student.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (student.getLastName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (student.getUserName().toLowerCase().contains(lowerCaseFilter)) {
+                    studentTable.getSelectionModel().select(student);
+                    showAdminDetails(student);
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<Student> sortedData = new SortedList<>(searchedData);
+        sortedData.comparatorProperty().bind(studentTable.comparatorProperty());
+        studentTable.setItems(sortedData);
+
+
+    }
+    private void showAdminDetails(Student student) {
+        studentId.setText(String.valueOf(student.getId()));
+        firstName.setText(student.getFirstName());
+        lastName.setText(student.getLastName());
+        employmentDate.setValue(student.getEmploymentDate());
+        salary.setText(String.valueOf(student.getSalary()));
+        engineerId.setText(String.valueOf(student.getEngineerId()));
+        university.setText(student.getUniversity());
+        password.setText(student.getPassword());
+        username.setText(student.getUserName());
+
+
+    }
+    public void searchRequestFocus(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                searchStudents.requestFocus();
+            }
+        });
+    }
 
     @FXML
 
@@ -342,6 +393,8 @@ public class StudentController implements Initializable {
         studentTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnProperties();
         loadStudentDetails();
+        filterData();
+        searchRequestFocus();
     }
 
 
